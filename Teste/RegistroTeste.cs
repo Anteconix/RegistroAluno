@@ -70,10 +70,13 @@ namespace Teste
 
         public void EmailObrigatorio(string emailErrado)
         {
-            Assert.Throws<ArgumentException>(
+            string mensagem;
+
+            mensagem=Assert.Throws<ArgumentException>(
                 () =>
                 new Registro( _numMatricula, emailErrado, _nome, _telefone)
-                );
+                ).Message;
+            Assert.Equal("Email Obrigatório", mensagem);
         }
 
         [Theory]
@@ -81,6 +84,7 @@ namespace Teste
         [InlineData("xxx.com.br")]
         [InlineData("teste8")]
         [InlineData("xunda@.br")]
+        [InlineData("teste@catolicasc.edu.br")]
 
         public void EmailInvalido(string emailErrado)
         {
